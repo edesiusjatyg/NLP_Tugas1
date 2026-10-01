@@ -12,15 +12,12 @@ from pathlib import Path
 from collections import Counter
 
 BASE_DIR = Path(__file__).parent
-RESOURCE_DIR = BASE_DIR / "resource"
-RESULTS_DIR  = BASE_DIR / "results"
+RESOURCE_DIR = BASE_DIR/"resource"
+RESULTS_DIR = BASE_DIR/"results"
 RESULTS_DIR.mkdir(exist_ok=True)
 
 # TASK A
-def parse_references(
-  filepath=RESOURCE_DIR / "doc_1.txt",
-  output=RESULTS_DIR / "a_judul.json"
-):
+def parse_references(filepath=RESOURCE_DIR/"doc_1.txt", output=RESULTS_DIR/"a_judul.json"):
   with open(filepath, "r", encoding="utf-8") as f:
     raw = f.read()
 
@@ -80,28 +77,16 @@ def parse_references(
 
 
 # TASK B
-STOPWORDS_ID = {
-    "yang", "di", "dan", "ini", "itu", "dari", "pada", "ke", "dengan", "untuk", "adalah", "juga", "oleh", "dalam", "tidak", "tersebut",
-    "sebagai", "telah", "atau", "ada", "ia", "mereka", "kita", "akan", "dapat", "lebih", "bagi", "sejak", "karena", "namun", "serta",
-    "bahwa", "hingga", "antara", "kemudian", "saat", "bila", "ketika", "setelah", "sebelum", "menjadi", "sudah", "belum", "sangat", "hanya",
-    "pun", "pula", "atas", "bawah", "seperti", "sebuah", "salah", "satu", "dua", "tiga", "beberapa", "suatu", "para", "hal", "cara", "maka",
-    "agar", "maupun", "selain", "yaitu", "yakni", "jika", "apabila", "meski", "walau", "walaupun", "meskipun", "sehingga", "tentang",
-    "terhadap", "selama", "sekitar", "sesuai", "berdasarkan", "menurut", "mengenai", "melainkan", "daripada", "diantara", "oleh", "tahun",
-    "abad", "a", "b", "c", "d", "e", "f", "masa", "nya", "mu", "ku", "si", "sang", "saja", "lah", "kah", "an", "baik", "lain", "lainnya",
-    "setiap", "tiap", "banyak", "semua", "seluruh", "berbagai", "sejumlah"
-}
+def word_frequency(filepath=RESOURCE_DIR/"doc_2.txt", stopwords_file=RESOURCE_DIR/"indonesian-stopwords-complete.txt", output=RESULTS_DIR/"b_kataunik.txt", top_n=30):
+  with open(stopwords_file, "r", encoding="utf-8") as f:
+    stopwords = set(line.strip().lower() for line in f if line.strip())
 
-def word_frequency(
-  filepath=RESOURCE_DIR/"doc_2.txt",
-  output=RESULTS_DIR/"b_kataunik.txt",
-  top_n=30
-):
   with open(filepath, "r", encoding="latin-1") as f:
     raw = f.read()
 
   raw = raw.lower()
   tokens = re.findall(r'\b[a-z]{2,}\b', raw)
-  filtered = [tok for tok in tokens if tok not in STOPWORDS_ID]
+  filtered = [tok for tok in tokens if tok not in stopwords]
   freq = Counter(filtered)
   top_words = freq.most_common(top_n)
 
@@ -113,10 +98,7 @@ def word_frequency(
 
 
 # TASK C
-def clean_subtitle(
-  filepath=RESOURCE_DIR / "doc_3.srt",
-  output=RESULTS_DIR / "c_subtitle.txt"
-):
+def clean_subtitle(filepath=RESOURCE_DIR/"doc_3.srt", output=RESULTS_DIR/"c_subtitle.txt"):
   with open(filepath, "r", encoding="utf-8") as f:
     raw = f.read()
 
