@@ -1,0 +1,29 @@
+Goldberg, Yoav (2016). "A Primer on Neural Network Models for Natural Language Processing". Journal of Artificial Intelligence Research. 57: 345–420. arXiv:1807.10854.
+
+Goodfellow, Ian; Bengio, Yoshua; Courville, Aaron (2016). Deep Learning. MIT Press.
+
+Jozefowicz, Rafal; Vinyals, Oriol; Schuster, Mike; Shazeer, Noam; Wu, Yonghui (2016). Exploring the Limits of Language Modeling. arXiv:1602.02410.
+
+Choe, Do Kook; Charniak, Eugene. "Parsing as Language Modeling". EMNLP 2016.
+
+Vinyals, Oriol; et al. "Grammar as a Foreign Language" (PDF). NIPS2015.
+
+Winograd, Terry (1971). Procedures as a Representation for Data in a Computer Program for Understanding Natural Language (Thesis).
+
+Schank, Roger C.; Abelson, Robert P. (1977). Scripts, Plans, Goals, and Understanding: An Inquiry Into Human Knowledge Structures. Hillsdale: Erlbaum. ISBN 0-470-99033-3.
+
+Mark Johnson. How the statistical revolution changes (computational) linguistics. Proceedings of the EACL 2009 Workshop on the Interaction between Linguistics and Computational Linguistics.
+
+Philip Resnik. Four revolutions. Language Log, February 5, 2011.
+
+Klein, Dan; Manning, Christopher D. (2002). "Natural language grammar induction using a constituent-context model" (PDF). Advances in neural information processing systems.
+
+Kishorjit, N.; Vidya, Raj RK.; Nirmal, Y.; Sivaji, B. (2012). "Manipuri Morpheme Identification" (PDF). Proceedings of the 3rd Workshop on South and Southeast Asian Natural Language Processing (SANLP). COLING 2012, Mumbai, December 2012: 95–108.
+
+Duan, Yucong; Cruz, Christophe (2011). "Formalizing Semantic of Natural Language through Conceptualization from Existence". International Journal of Innovation, Management and Technology. 2 (1): 37–42. Archived from the original on 2011-10-09.
+
+Mittal (2011). "Versatile question answering systems: seeing in synthesis". IJIIDS. 5 (2): 119–142. doi:10.1504/IJIIDS.2011.038968.
+
+PASCAL Recognizing Textual Entailment Challenge (RTE-7) https://tac.nist.gov//2011/RTE/
+
+Yi, Chucai; Tian, Yingli (2012), "Assistive Text Reading from Complex Background for Blind Persons", Camera-Based Document Analysis and Recognition, Springer Berlin Heidelberg, pp. 15–28, CiteSeerX 10.1.1.668.869, doi:10.1007/978-3-642-29364-1_2, ISBN 9783642293634

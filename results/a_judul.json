@@ -1,0 +1,73 @@
+[
+    {
+        "year": "2016",
+        "title": "A Primer on Neural Network Models for Natural Language Processing",
+        "authors": "Goldberg, Yoav"
+    },
+    {
+        "year": "2016",
+        "title": "Deep Learning",
+        "authors": "Goodfellow, Ian; Bengio, Yoshua; Courville, Aaron"
+    },
+    {
+        "year": "2016",
+        "title": "Exploring the Limits of Language Modeling",
+        "authors": "Jozefowicz, Rafal; Vinyals, Oriol; Schuster, Mike; Shazeer, Noam; Wu, Yonghui"
+    },
+    {
+        "year": "2016",
+        "title": "Parsing as Language Modeling",
+        "authors": "Choe, Do Kook; Charniak, Eugene"
+    },
+    {
+        "title": "Grammar as a Foreign Language",
+        "authors": "Vinyals, Oriol; et al"
+    },
+    {
+        "year": "1971",
+        "title": "Procedures as a Representation for Data in a Computer Program for Understanding Natural Language",
+        "authors": "Winograd, Terry"
+    },
+    {
+        "year": "1977",
+        "title": "Scripts, Plans, Goals, and Understanding: An Inquiry Into Human Knowledge Structures",
+        "authors": "Schank, Roger C.; Abelson, Robert P"
+    },
+    {
+        "year": "2009",
+        "authors": "Mark Johnson"
+    },
+    {
+        "year": "2011",
+        "authors": "Philip Resnik"
+    },
+    {
+        "year": "2002",
+        "title": "Natural language grammar induction using a constituent-context model",
+        "authors": "Klein, Dan; Manning, Christopher D"
+    },
+    {
+        "year": "2012",
+        "title": "Manipuri Morpheme Identification",
+        "authors": "Kishorjit, N.; Vidya, Raj RK.; Nirmal, Y.; Sivaji, B"
+    },
+    {
+        "year": "2011",
+        "title": "Formalizing Semantic of Natural Language through Conceptualization from Existence",
+        "authors": "Duan, Yucong; Cruz, Christophe"
+    },
+    {
+        "year": "2011",
+        "title": "Versatile question answering systems: seeing in synthesis",
+        "authors": "Mittal"
+    },
+    {
+        "year": "2011",
+        "authors": "PASCAL Recognizing Textual Entailment Challenge (RTE-7) https://tac"
+    },
+    {
+        "year": "2012",
+        "title": "Assistive Text Reading from Complex Background for Blind Persons",
+        "authors": "Yi, Chucai; Tian, Yingli"
+    }
+]
