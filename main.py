@@ -1,23 +1,23 @@
 """
-* 245150200111021 Edesius Jaty Giovanni: Regexing Task A & C
+* 245150200111021 Edesius Jaty Giovanni: Task B
 * 245150207111053 Alia Atikah Sana: Task B
-* NIM_3 NAMA_3: -
-* NIM_4 NAMA_4: -
-* 
+* 245150200111055 CHRISTIANO ALFONSIUS PURBA: Task A
+* 245150200111060 DAMAR TYAGA WISTARA: Task C
+* 245150200111058 Luthfi Pratama Sahni: Task C
 """
 
 import re
 import json
-from pathlib import Path
+import os
 from collections import Counter
 
-BASE_DIR = Path(__file__).parent
-RESOURCE_DIR = BASE_DIR/"resource"
-RESULTS_DIR = BASE_DIR/"results"
-RESULTS_DIR.mkdir(exist_ok=True)
+BASE_DIR=os.path.dirname(os.path.abspath(__file__))
 
 # TASK A
-def parse_references(filepath=RESOURCE_DIR/"doc_1.txt", output=RESULTS_DIR/"a_judul.json"):
+def parsing_a():
+  filepath=os.path.join(BASE_DIR, "resource/doc_1.txt")
+  output=os.path.join(BASE_DIR, "results/a_judul.json")
+
   with open(filepath, "r", encoding="utf-8") as f:
     raw = f.read()
 
@@ -33,9 +33,9 @@ def parse_references(filepath=RESOURCE_DIR/"doc_1.txt", output=RESULTS_DIR/"a_ju
 
     year_match = re.search(r'\((\d{4})\)', block)
     if not year_match:
-      year_match = re.search(r'\b((?:19|20)\d{2})\b', block)
+      year_match = re.search(r'\b((19|20)\d{2})\b', block)
     if not year_match:
-      year_match = re.search(r'(?<=[A-Za-z])((?:19|20)\d{2})\b', block)
+      year_match = re.search(r'(?<=[A-Za-z])((19|20)\d{2})\b', block)
     if year_match:
       entry["year"] = year_match.group(1)
 
@@ -53,31 +53,36 @@ def parse_references(filepath=RESOURCE_DIR/"doc_1.txt", output=RESULTS_DIR/"a_ju
           if candidate and not re.match(r'^\d{4}', candidate) and 'http' not in candidate:
             entry["title"] = candidate
 
-    if year_match and '(' + year_match.group(1) + ')' in block:
-      before_year = block[:block.index('(' + year_match.group(1) + ')')].strip()
-      before_year = re.sub(r'[.,\s]+$', '', before_year)
-      if before_year:
-        entry["authors"] = before_year
+    if year_match and '('+year_match.group(1)+')' in block:
+      before_year = block[:block.index('('+year_match.group(1)+')')].strip()
+      before_year = before_year.strip().rstrip('.,')
+      entry["authors"] = before_year
     else:
       author_match = re.match(r'^([^.\n]+?)\.', block)
       if author_match:
         cand = author_match.group(1).strip()
         if cand and 'http' not in cand:
           entry["authors"] = cand
-
+    
+    # buat handle kasus index 13 (URL)
     if not entry.get("title") and not entry.get("authors"):
       entry["title"] = block.strip()
     if entry.get("title") or entry.get("authors"):
       results.append(entry)
 
   with open(output, "w", encoding="utf-8") as f:
-    json.dump(results, f, indent=4, ensure_ascii=False)
+    json.dump(results, f, indent=4)
 
   return results
 
 
 # TASK B
-def word_frequency(filepath=RESOURCE_DIR/"doc_2.txt", stopwords_file=RESOURCE_DIR/"indonesian-stopwords-complete.txt", output=RESULTS_DIR/"b_kataunik.txt", top_n=30):
+def word_freq():
+  filepath=os.path.join(BASE_DIR, "resource/doc_2.txt")
+  stopwords_file=os.path.join(BASE_DIR, "resource/indonesian-stopwords-complete.txt")
+  output=os.path.join(BASE_DIR, "results/b_kataunik.txt")
+  top_n=30
+
   with open(stopwords_file, "r", encoding="utf-8") as f:
     stopwords = set(line.strip().lower() for line in f if line.strip())
 
@@ -98,7 +103,10 @@ def word_frequency(filepath=RESOURCE_DIR/"doc_2.txt", stopwords_file=RESOURCE_DI
 
 
 # TASK C
-def clean_subtitle(filepath=RESOURCE_DIR/"doc_3.srt", output=RESULTS_DIR/"c_subtitle.txt"):
+def subtitle_cleaning():
+  filepath=os.path.join(BASE_DIR, "resource/doc_3.srt")
+  output=os.path.join(BASE_DIR, "results/c_subtitle.txt")
+
   with open(filepath, "r", encoding="utf-8") as f:
     raw = f.read()
 
@@ -122,6 +130,6 @@ def clean_subtitle(filepath=RESOURCE_DIR/"doc_3.srt", output=RESULTS_DIR/"c_subt
 
 
 if __name__ == "__main__":
-  parse_references()
-  word_frequency()
-  clean_subtitle()
+  parsing_a()
+  word_freq()
+  subtitle_cleaning()
