@@ -20,6 +20,7 @@
         "authors": "Choe, Do Kook; Charniak, Eugene"
     },
     {
+        "year": "2015",
         "title": "Grammar as a Foreign Language",
         "authors": "Vinyals, Oriol; et al"
     },
@@ -35,10 +36,12 @@
     },
     {
         "year": "2009",
+        "title": "How the statistical revolution changes (computational) linguistics",
         "authors": "Mark Johnson"
     },
     {
         "year": "2011",
+        "title": "Four revolutions",
         "authors": "Philip Resnik"
     },
     {
@@ -63,7 +66,7 @@
     },
     {
         "year": "2011",
-        "authors": "PASCAL Recognizing Textual Entailment Challenge (RTE-7) https://tac"
+        "title": "PASCAL Recognizing Textual Entailment Challenge (RTE-7) https://tac.nist.gov//2011/RTE/"
     },
     {
         "year": "2012",

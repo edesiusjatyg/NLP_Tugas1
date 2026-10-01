@@ -1,8 +1,9 @@
 """
-* 245150200111021 Edesius Jaty Giovanni: Regexing
-* 245150207111053 Alia Atikah Sana: semua
-* NIM_3 NAMA_3: peran_mahasiswa_3
-* NIM_4 NAMA_4: peran_mahasiswa_4
+* 245150200111021 Edesius Jaty Giovanni: Regexing Task A & C
+* 245150207111053 Alia Atikah Sana: Task B
+* NIM_3 NAMA_3: -
+* NIM_4 NAMA_4: -
+* 
 """
 
 import re
@@ -36,18 +37,24 @@ def parse_references(
     year_match = re.search(r'\((\d{4})\)', block)
     if not year_match:
       year_match = re.search(r'\b((?:19|20)\d{2})\b', block)
+    if not year_match:
+      year_match = re.search(r'(?<=[A-Za-z])((?:19|20)\d{2})\b', block)
     if year_match:
       entry["year"] = year_match.group(1)
 
-    title_match = re.search(r'"([^"]+)"', block)
+    title_match = re.search(r'["\u201c]([^"\u201d]+)["\u201d]', block)
     if title_match:
       entry["title"] = title_match.group(1).strip()
     else:
-      no_quote_match = re.search(r'\(\d{4}\)\.\s+([^.]+)\.', block)
+      no_quote_match = re.search(r'\(\d{4}\)[.,]?\s+([^.\n]+?)(?:\s*\((?:PDF|Thesis)\))?\s*\.', block)
       if no_quote_match:
-        title_candidate = no_quote_match.group(1).strip()
-        title_candidate = re.sub(r'\s*\((?:PDF|Thesis)\)', '', title_candidate).strip()
-        entry["title"] = title_candidate
+        entry["title"] = no_quote_match.group(1).strip()
+      else:
+        dot_split = re.split(r'\.\s+', block, maxsplit=2)
+        if len(dot_split) >= 2:
+          candidate = dot_split[1].strip()
+          if candidate and not re.match(r'^\d{4}', candidate) and 'http' not in candidate:
+            entry["title"] = candidate
 
     if year_match and '(' + year_match.group(1) + ')' in block:
       before_year = block[:block.index('(' + year_match.group(1) + ')')].strip()
@@ -55,16 +62,14 @@ def parse_references(
       if before_year:
         entry["authors"] = before_year
     else:
-      author_match = re.match(r'^([^".\n]+?)(?:\.\s+"|\s+")', block)
+      author_match = re.match(r'^([^.\n]+?)\.', block)
       if author_match:
-        entry["authors"] = author_match.group(1).strip()
-      else:
-        author_fallback = re.match(r'^([^.]+)\.', block)
-        if author_fallback:
-          cand = author_fallback.group(1).strip()
-          if re.search(r'[A-Z]', cand):
-            entry["authors"] = cand
+        cand = author_match.group(1).strip()
+        if cand and 'http' not in cand:
+          entry["authors"] = cand
 
+    if not entry.get("title") and not entry.get("authors"):
+      entry["title"] = block.strip()
     if entry.get("title") or entry.get("authors"):
       results.append(entry)
 
@@ -76,20 +81,13 @@ def parse_references(
 
 # TASK B
 STOPWORDS_ID = {
-    "yang", "di", "dan", "ini", "itu", "dari", "pada", "ke", "dengan",
-    "untuk", "adalah", "juga", "oleh", "dalam", "tidak", "tersebut",
-    "sebagai", "telah", "atau", "ada", "ia", "mereka", "kita", "akan",
-    "dapat", "lebih", "bagi", "sejak", "karena", "namun", "serta",
-    "bahwa", "hingga", "antara", "kemudian", "saat", "bila", "ketika",
-    "setelah", "sebelum", "menjadi", "sudah", "belum", "sangat", "hanya",
-    "pun", "pula", "atas", "bawah", "seperti", "sebuah", "salah", "satu",
-    "dua", "tiga", "beberapa", "suatu", "para", "hal", "cara", "maka",
-    "agar", "maupun", "selain", "yaitu", "yakni", "jika", "apabila",
-    "meski", "walau", "walaupun", "meskipun", "sehingga", "tentang",
-    "terhadap", "selama", "sekitar", "sesuai", "berdasarkan", "menurut",
-    "mengenai", "melainkan", "daripada", "diantara", "oleh", "tahun",
-    "abad", "a", "b", "c", "d", "e", "f", "masa", "nya", "mu", "ku",
-    "si", "sang", "saja", "lah", "kah", "an", "baik", "lain", "lainnya",
+    "yang", "di", "dan", "ini", "itu", "dari", "pada", "ke", "dengan", "untuk", "adalah", "juga", "oleh", "dalam", "tidak", "tersebut",
+    "sebagai", "telah", "atau", "ada", "ia", "mereka", "kita", "akan", "dapat", "lebih", "bagi", "sejak", "karena", "namun", "serta",
+    "bahwa", "hingga", "antara", "kemudian", "saat", "bila", "ketika", "setelah", "sebelum", "menjadi", "sudah", "belum", "sangat", "hanya",
+    "pun", "pula", "atas", "bawah", "seperti", "sebuah", "salah", "satu", "dua", "tiga", "beberapa", "suatu", "para", "hal", "cara", "maka",
+    "agar", "maupun", "selain", "yaitu", "yakni", "jika", "apabila", "meski", "walau", "walaupun", "meskipun", "sehingga", "tentang",
+    "terhadap", "selama", "sekitar", "sesuai", "berdasarkan", "menurut", "mengenai", "melainkan", "daripada", "diantara", "oleh", "tahun",
+    "abad", "a", "b", "c", "d", "e", "f", "masa", "nya", "mu", "ku", "si", "sang", "saja", "lah", "kah", "an", "baik", "lain", "lainnya",
     "setiap", "tiap", "banyak", "semua", "seluruh", "berbagai", "sejumlah"
 }
 
@@ -128,7 +126,7 @@ def clean_subtitle(
   raw = re.sub(r'<[^>]+>', '', raw)
   raw = re.sub(r'\n{2,}', '\n', raw)
   raw = re.sub(
-    r'^.*(Lebah|Iklan|Bisnis|Joinwin|Sbobet|Casino|Poker|Slot|\d{9,}|\d+\.\d+\.\d+\.\d+).*$',
+    r'^.*(Lebah|L\s*e\s*b\s*a\s*h|Iklan|Bisnis|Joinwin|Sbobet|Casino|Poker|Slot|IG\s*:|https?://\S+|\d{9,}|\d+\.\d+\.\d+\.\d+).*$',
     '', raw, flags=re.MULTILINE | re.IGNORECASE
   )
 
